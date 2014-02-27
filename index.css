@@ -12,3 +12,24 @@
   border-radius: 10px;
   margin:
 }
+
+#colored-border {
+  border-width:10px;
+  position:fixed;
+  top:0px;
+  left:0px;
+  bottom:0px;
+  right:0px;
+  z-index:-1;
+}
+.red-border {
+  border-color:red;
+  border-style:solid;
+}
+.green-border {
+  border-color:green;
+  border-style:solid;
+}
+.clicked {
+  border-width:3px;
+}
