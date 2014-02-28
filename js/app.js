@@ -34,8 +34,8 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     events:{
       "click .btn":"buttonClicked"
     },
-    template:"<h1 class='math question first text-center'>{{a}}+{{b}}</h1>"+
-      "<h1 class='math question equals text-center'>=</h1>"+
+    template:"<h1 class='math text-xl xquestion first text-center'>{{a}}+{{b}}</h1>"+
+      "<h1 class='math text-xl xquestion equals text-center'>=</h1>"+
       "<div class='bn-group text-center result'>"+
       "{{#options}}<button class='btn btn-xl {{#disabled}}disabled{{/disabled}} {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} {{#clicked}}clicked{{/clicked}}'>{{value}}</button> {{/options}}"+
       "</h1>",

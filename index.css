@@ -1,5 +1,27 @@
-
-
+@media screen {
+  .text-xl {
+    font-size:80px;
+  }
+  .btn-xl {
+    padding: 4px 10px;
+    font-size: 34px;
+    margin:3px;
+  }
+}
+@media screen and (min-width:767px) {
+  .text-xl {
+    font-size:110px;
+  }
+  .btn-xl {
+    padding: 20px 26px;
+    font-size: 44px;
+  }
+}
+@media screen and (min-width:1023px) {
+  .text-xl {
+    font-size:130px;
+  }
+}
 
 
 .math.question {
@@ -10,11 +32,8 @@
 }
 
 .btn-xl {
-  padding: 20px 26px;
-  font-size: 44px;
   line-height: 1.33;
   border-radius: 10px;
-  margin:
 }
 
 #colored-border {
