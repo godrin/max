@@ -20,15 +20,79 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- link rel="stylesheet" href="css/main.css" -->
     <script data-main="js/main" src="js/libs/requirejs/require.js"></script>
+
+    <script type='text/html' id='plusExerciseTemplate'>
+
+      <div class='exercise-header {{#correctResult}}green-border{{/correctResult}}'>
+        <div class='container'>
+          <h1 class='math text-xl xquestion first text-center'>
+            {{a}}+{{b}}
+          </h1>
+          <h1 class='math text-xl xquestion equals text-center'>=</h1>
+        </div>
+      </div>
+      <div class='exercise-answer'>
+        <div class='container'>
+          <div id='colored-border' class='{{#correctResult}}green-border{{/correctResult}}'></div>
+          
+          <div class='bn-group text-center result'>
+            {{#options}}
+            <button class='btn btn-xl {{#disabled}}disabled{{/disabled}} 
+              {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} 
+              {{#clicked}}clicked{{/clicked}}'>
+              {{value}}
+            </button> 
+            {{/options}}
+          </div>
+        </div>
+      </div>
+
+    </script>
+
+
   </head>
   <body>
     <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
     <!-- Add your site or application content here -->
-    <div id='colored-border'></div>
-    <div class='container'>
-      <div id='exercise'></div>
+    <a class="sr-only" href="#content">Skip to main content</a>
+    <header class="navbar navbar-static-top navbar-default bs-docs-nav" id="top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/learn" class="navbar-brand"><img src='img/owl.svg' class='logo owl'><!--eLearn--></a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+        <a href="../getting-started">Getting started</a>
+        </li>
+        <li class="active">
+        <a href="../css">CSS</a>
+        </li>
+        <li>
+        <a href="../components">Components</a>
+        </li>
+        <li>
+        <a href="../javascript">JavaScript</a>
+        </li>
+        <li>
+        <a href="../customize">Customize</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://expo.getbootstrap.com" onclick="_gaq.push(['_trackEvent', 'Navbar', 'Community links', 'Expo']);">Expo</a></li>
+        <li><a href="http://blog.getbootstrap.com" onclick="_gaq.push(['_trackEvent', 'Navbar', 'Community links', 'Blog']);">Blog</a></li>
+      </ul>
+      </nav>
     </div>
+    </header>
+    <div id='exercise'></div>
   </body>
 </html>

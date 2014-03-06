@@ -8,7 +8,8 @@ require.config({
     "underscore": "libs/underscore/underscore",
     "backbone": "libs/backbone/backbone",
     "mustache": "libs/mustache/mustache",
-    "bootstrap": "libs/bootstrap/dist/js/bootstrap"
+    "bootstrap": "libs/bootstrap/dist/js/bootstrap",
+    "hide-address-bar": "libs/hide-address-bar/hide-address-bar"
   },
   shim: {
     "backbone": {
@@ -23,6 +24,8 @@ require.config({
 });
 //requiring the scripts in the first argument and then passing the library namespaces into a callback
 //you should be able to console log all of the callback arguments
-require(['jquery', 'underscore', 'backbone', 'app'], function(jquery, _, Backbone, App){
-  new App;
+require(['jquery', 'underscore', 'backbone', 'hide-address-bar'], function(jquery, _, Backbone){
+  require(['bootstrap', 'app'], function(Bootstrap, App){
+    new App;
+  });
 });

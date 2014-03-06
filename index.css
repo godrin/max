@@ -1,3 +1,14 @@
+.navbar {
+  margin-bottom:0px;
+}
+.navbar-brand {
+  padding:0px;
+}
+.logo.owl {
+  width:56px;
+  height:56px;
+}
+
 @media screen {
   .text-xl {
     font-size:80px;
@@ -23,6 +34,32 @@
   }
 }
 
+.exercise-header {
+  position: relative;
+  padding: 30px 15px;
+  color: #cdbfe3;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0,0,0,.1);
+  background-color: #6f5499;
+  border-width:10px;
+/*  background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+  background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);*/
+}
+
+.exercise-header h1 {
+  color:white;
+}
+
+.exercise-answer {
+  margin-top:30px;
+}
+.exercise-answer .container {
+  position:relative;
+}
+
+/* OLD */
 
 .math.question {
   font-size:130px;
@@ -53,6 +90,7 @@
   border-color:green;
   border-style:solid;
 }
+
 .clicked {
   border-width:3px;
 }

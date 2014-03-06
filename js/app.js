@@ -34,17 +34,14 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     events:{
       "click .btn":"buttonClicked"
     },
-    template:"<h1 class='math text-xl xquestion first text-center'>{{a}}+{{b}}</h1>"+
-      "<h1 class='math text-xl xquestion equals text-center'>=</h1>"+
-      "<div class='bn-group text-center result'>"+
-      "{{#options}}<button class='btn btn-xl {{#disabled}}disabled{{/disabled}} {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} {{#clicked}}clicked{{/clicked}}'>{{value}}</button> {{/options}}"+
-      "</h1>",
+    templateEl:"#plusExerciseTemplate",
     initialize:function() {
       this.render();
       this.listenTo(this.model,"change",this.render);
     },
     render:function() {
-      var t=this.template;
+      if(!this.template)
+        this.template=$(this.templateEl).html();
       var viewModel=this.model.toJSON();
       viewModel.options=_.map(viewModel.options,function(val) {
         return { value: val,
@@ -53,7 +50,8 @@ define(["backbone","mustache"], function(Backbone,Mustache){
           disabled: viewModel.clicked
         };
       });
-      console.log("VM",viewModel);
+      viewModel.correctResult=viewModel.result=="success";
+      viewModel.failResult=viewModel.result=="fail";
       this.$el.html(Mustache.render(this.template,viewModel));
     },
     buttonClicked:function(event) {
