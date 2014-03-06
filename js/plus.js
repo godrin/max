@@ -75,22 +75,52 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     }
   });
 
+  var SequenceModel=Backbone.Model.extend({
+    initialize:function() {
+      this.listenTo(this,"change",this.checkReady);
+    },
+    isReady:function() {
+      return this.get("count")==this.get("counter");
+    },
+    checkReady:function() {
+      console.log("CHECK");
+      this.set("ready",this.isReady());
+    }
+  });
+
   var App = Backbone.View.extend({
     WAIT_TIME_GOOD:500,
     WAIT_TIME_BAD:4000,
+    sequenceModel:new SequenceModel({counter:0,count:5}),
     initialize: function(){
       this.model=new ExerciseModel({min:1,max:10,optionCount:4});
-      this.exerciseView=new ExerciseView({model:this.model,el:"#exercise"});
+      this.exerciseView=new ExerciseView({model:this.model,el:"#page"});
       this.borderView=new BorderView({model:this.model,el:"#colored-border"});
       this.listenTo(this.model,"change:result",this.resultChanged);
+      this.listenTo(this.sequenceModel,"change:ready",this.sequenceReady);
     },
     resultChanged:function() {
-      if(this.model.get("result"))
-        setTimeout(_.bind(this.model.create,this.model),
-      this.getWaitTime(this.model.get("result")));
+      console.log("RES CHANGED");
+      if(this.model.get("result")) {
+        console.log("RESS2");
+        var finished=false;
+        if(this.sequenceModel) {
+          console.log("SEQMODEL");
+          this.sequenceModel.set({counter:this.sequenceModel.get("counter")+1});
+          console.log("SM",this.sequenceModel.toJSON());
+          finished=this.sequenceModel.isReady();
+        }
+
+        if(!finished)
+          setTimeout(_.bind(this.model.create,this.model), this.getWaitTime(this.model.get("result")));
+
+      }
     },
     getWaitTime:function(result) {
       return result=="success"?this.WAIT_TIME_GOOD:this.WAIT_TIME_BAD;
+    },
+    sequenceReady:function() {
+      console.log("SEQ READY");
     }
   });
   return App;

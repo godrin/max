@@ -22,34 +22,46 @@
     <script data-main="js/main" src="js/libs/requirejs/require.js"></script>
 
     <script type='text/html' id='plusExerciseTemplate'>
-
-      <div class='exercise-header {{#correctResult}}green-border{{/correctResult}}'>
-        <div class='container'>
-          <h1 class='math text-xl xquestion first text-center'>
-            {{a}}+{{b}}
-          </h1>
-          <h1 class='math text-xl xquestion equals text-center'>=</h1>
+      <div class='{{#correctResult}}green-border{{/correctResult}}'>
+        <div class='exercise-header'>
+          <div class='container'>
+            <h1 class='math text-xl xquestion first text-center'>
+              {{a}}+{{b}}
+            </h1>
+            <h1 class='math text-xl xquestion equals text-center'>=</h1>
+          </div>
         </div>
-      </div>
-      <div class='exercise-answer'>
-        <div class='container'>
-          <div id='colored-border' class='{{#correctResult}}green-border{{/correctResult}}'></div>
-          
-          <div class='bn-group text-center result'>
-            {{#options}}
-            <button class='btn btn-xl {{#disabled}}disabled{{/disabled}} 
-              {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} 
-              {{#clicked}}clicked{{/clicked}}'>
-              {{value}}
-            </button> 
-            {{/options}}
+        <div class='exercise-answer'>
+          <div class='container'>
+            <div class='colored-border'></div>
+
+            <div class='bn-group text-center result'>
+              {{#options}}
+              <button class='btn btn-xl {{#disabled}}disabled{{/disabled}} 
+                {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} 
+                {{#clicked}}clicked{{/clicked}}'>
+                {{value}}
+              </button> 
+              {{/options}}
+            </div>
           </div>
         </div>
       </div>
 
     </script>
 
-
+    <script type='text/html' id='startPageTemplate'>
+      <div class='container'>
+        <h1>Such Dir eine Aufgabe aus:</h1>
+        {{#exercise}}
+        <div class='col-md-4'>
+          <a class='btn btn-default btn-lg' href='{{url}}'>
+            {{name}}
+          </a>
+        </div>
+        {{/exercise}}
+      </div>
+    </script>
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -66,7 +78,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/learn" class="navbar-brand"><img src='img/owl.svg' class='logo owl'><!--eLearn--></a>
+        <a href="#" class="navbar-brand"><img src='img/owl.svg' class='logo owl'><!--eLearn--></a>
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
@@ -93,6 +105,6 @@
       </nav>
     </div>
     </header>
-    <div id='exercise'></div>
+    <div id='page'></div>
   </body>
 </html>

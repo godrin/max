@@ -25,7 +25,10 @@ require.config({
 //requiring the scripts in the first argument and then passing the library namespaces into a callback
 //you should be able to console log all of the callback arguments
 require(['jquery', 'underscore', 'backbone', 'hide-address-bar'], function(jquery, _, Backbone){
-  require(['bootstrap', 'app'], function(Bootstrap, App){
+  //require(['bootstrap', 'app'], function(Bootstrap, App){
+
+  require(['bootstrap', 'route'], function(Bootstrap, App){
     new App;
+    Backbone.history.start();
   });
 });
