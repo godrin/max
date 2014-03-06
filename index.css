@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .navbar {
   margin-bottom:0px;
 }
@@ -67,6 +68,8 @@
 
 /* OLD */
 
+=======
+>>>>>>> c62deb66087cc3c60866303bdae969f472ce5c70
 .math.question {
   font-size:130px;
 
@@ -77,6 +80,10 @@
 .btn-xl {
   line-height: 1.33;
   border-radius: 10px;
+<<<<<<< HEAD
+=======
+  margin: 4px;
+>>>>>>> c62deb66087cc3c60866303bdae969f472ce5c70
 }
 
 .colored-border {
