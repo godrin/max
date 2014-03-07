@@ -47,11 +47,12 @@ define(["backbone","mustache"], function(Backbone,Mustache){
         return { value: val,
           correct: viewModel.clicked && val==viewModel.answer,
           clicked: val == viewModel.clicked,
-          disabled: viewModel.clicked
+          disabled: viewModel.clicked,
         };
       });
       viewModel.correctResult=viewModel.result=="success";
       viewModel.failResult=viewModel.result=="fail";
+      viewModel.op="+";
       this.$el.html(Mustache.render(this.template,viewModel));
     },
     buttonClicked:function(event) {
