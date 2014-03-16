@@ -92,10 +92,10 @@ define(["backbone","mustache"], function(Backbone,Mustache){
   var App = Backbone.View.extend({
     WAIT_TIME_GOOD:500,
     WAIT_TIME_BAD:4000,
-    sequenceModel:new SequenceModel({counter:0,count:5}),
     initialize: function(){
+      this.sequenceModel=new SequenceModel({counter:0,count:5});
       this.model=new ExerciseModel({min:1,max:10,optionCount:4});
-      this.exerciseView=new ExerciseView({model:this.model,el:"#page"});
+      this.exerciseView=new ExerciseView({model:this.model,el:this.$el});
       this.borderView=new BorderView({model:this.model,el:"#colored-border"});
       this.listenTo(this.model,"change:result",this.resultChanged);
       this.listenTo(this.sequenceModel,"change:ready",this.sequenceReady);

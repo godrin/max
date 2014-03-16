@@ -4,21 +4,27 @@ define(["backbone", "mustache","start","plus","progress"],
     start,
     plus,
   progress){
-    var appOptions={el:"#page"};
+    var appOptions={tagName:"div",className:"page"};
+    var container="#pageContainer";
+
+    function show(type) {
+      $(container).empty();
+      $(container).append((new type(appOptions)).el);
+    }
+
     return Backbone.Router.extend({
       routes:{
         "":"index",
         "plus":"plus",
       },
       index:function() {
-        new start(appOptions);
-        console.log("INDEX");
+        show(start);
       },
       plus:function() {
-        new plus();
+        show(plus);
       },
       progress:function() {
-        new progress();
+        show(progress);
       }
 
     });
