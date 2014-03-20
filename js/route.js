@@ -9,6 +9,7 @@ define(["backbone", "mustache","start","plus","progress","state"],
 
     var levels=State.Levels;
     levels.fetch();
+    State.State.fetch();
 
     function show(type,options) {
       var ops=_.extend({},options);
@@ -20,11 +21,26 @@ define(["backbone", "mustache","start","plus","progress","state"],
       app.render();
     }
 
-    var router=Backbone.Router.extend({
+    var MainView=Backbone.View.extend({
+      initialize:function() {
+        this.listenTo(State.State,"all",this.stateChanged);
+      },
+      stateChanged:function(event,model,collection) {
+        var url=model.get("url");
+        console.log("ROUTER",this.attributes.router,model,url);
+        this.attributes.router.navigate("progress/"+url, {trigger: true});
+      }
+
+    });
+    var Router=Backbone.Router.extend({
       routes:{
         "":"index",
         "plus/:max":"plus",
-        "progress":"progress"
+        "progress/*url":"progress"
+      },
+      initialize:function() {
+        console.log("ROUTER.init");
+        new MainView({attributes:{router:this}});
       },
       index:function() {
         show(start);
@@ -32,24 +48,14 @@ define(["backbone", "mustache","start","plus","progress","state"],
       plus:function(max) {
         show(plus,{attributes:{max:max}});
       },
-      progress:function() {
-        show(progress);
+      progress:function(url) {
+        show(progress,{attributes:{url:url}});
       }
 
     });
 
-    var MainView=Backbone.View.extend({
-      initialize:function() {
-        this.listenTo(State.State,"all",this.stateChanged);
-      },
-      stateChanged:function(a,b,c) {
-        console.log("STATE CHANGED",a,b,c);
-      }
 
-    });
 
-    new MainView();
-
-    return router;
+    return Router;
   });
 

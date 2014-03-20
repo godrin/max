@@ -95,13 +95,13 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
     WAIT_TIME_GOOD:500,
     WAIT_TIME_BAD:4000,
     initialize: function(){
-    console.log("PLUS APP",this);
-      this.sequenceModel=new SequenceModel({counter:0,count:2});
+      console.log("PLUS APP",this);
+      this.sequenceModel=new SequenceModel({counter:0,count:4,good:0,bad:0});
 
       this.model=new ExerciseModel({min:1,max:this.attributes.max||4,optionCount:4});
       this.exerciseView=new ExerciseView({model:this.model});
       this.$el.append(this.exerciseView.el);
-//FIXME: add exerciseView.el to this.$el
+      //FIXME: add exerciseView.el to this.$el
 
       this.borderView=new BorderView({model:this.model,el:"#colored-border"});
       this.listenTo(this.model,"change:result",this.resultChanged);
@@ -114,7 +114,11 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
         var finished=false;
         if(this.sequenceModel) {
           console.log("SEQMODEL");
-          this.sequenceModel.set({counter:this.sequenceModel.get("counter")+1});
+          var toset={counter:this.sequenceModel.get("counter")+1};
+          var resultType=this.model.get("result")=="success"?"good":"bad";
+          toset[resultType]=(this.sequenceModel.get(resultType)||0)+1;
+          this.sequenceModel.set(toset);
+
           console.log("SM",this.sequenceModel.toJSON());
           finished=this.sequenceModel.isReady();
         }
@@ -128,17 +132,26 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
       return result=="success"?this.WAIT_TIME_GOOD:this.WAIT_TIME_BAD;
     },
     sequenceReady:function() {
-      console.log("SEQ READY");
+      console.log("SEQ READY",this.sequenceModel);
       this.trigger("ready");
-      State.State.upsert({url:location.hash,rating:this.model.get("result")});
-     
-     /*
+      var rating;
+      if(this.sequenceModel.get("bad")==0)
+        rating=3;
+      else if(this.sequenceModel.get("good")>this.sequenceModel.get("bad")*2)
+        rating=2;
+      else if(this.sequenceModel.get("good")>this.sequenceModel.get("bad"))
+        rating=1;
+      else
+        rating=0;
+      State.State.upsert({url:location.hash.substr(1),rating:rating});
+
+      /*
       this.resultView=new RatingView();
       this.resultView.render();
       console.log("RV",this.resultView,this.$el);
 
       this.$el.append(this.resultView.el);
-*/
+      */
     }
   });
   return App;
