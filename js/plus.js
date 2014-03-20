@@ -1,4 +1,4 @@
-define(["backbone","mustache"], function(Backbone,Mustache){
+define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
 
   function one() {
     return Math.round(Math.random()*10);
@@ -85,7 +85,9 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     },
     checkReady:function() {
       console.log("CHECK");
-      this.set("ready",this.isReady());
+      var nv=this.isReady();
+      if(nv)
+        this.set("ready",true);
     }
   });
 
@@ -93,9 +95,14 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     WAIT_TIME_GOOD:500,
     WAIT_TIME_BAD:4000,
     initialize: function(){
-      this.sequenceModel=new SequenceModel({counter:0,count:5});
-      this.model=new ExerciseModel({min:1,max:10,optionCount:4});
-      this.exerciseView=new ExerciseView({model:this.model,el:this.$el});
+    console.log("PLUS APP",this);
+      this.sequenceModel=new SequenceModel({counter:0,count:2});
+
+      this.model=new ExerciseModel({min:1,max:this.attributes.max||4,optionCount:4});
+      this.exerciseView=new ExerciseView({model:this.model});
+      this.$el.append(this.exerciseView.el);
+//FIXME: add exerciseView.el to this.$el
+
       this.borderView=new BorderView({model:this.model,el:"#colored-border"});
       this.listenTo(this.model,"change:result",this.resultChanged);
       this.listenTo(this.sequenceModel,"change:ready",this.sequenceReady);
@@ -122,6 +129,16 @@ define(["backbone","mustache"], function(Backbone,Mustache){
     },
     sequenceReady:function() {
       console.log("SEQ READY");
+      this.trigger("ready");
+      State.State.upsert({url:location.hash,rating:this.model.get("result")});
+     
+     /*
+      this.resultView=new RatingView();
+      this.resultView.render();
+      console.log("RV",this.resultView,this.$el);
+
+      this.$el.append(this.resultView.el);
+*/
     }
   });
   return App;

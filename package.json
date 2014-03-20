@@ -1,0 +1,27 @@
+{
+  "name": "learn",
+  "version": "0.0.1",
+  "description": "Learning things for kids",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-bower-task": "~0.3.4",
+    "grunt-contrib-jshint": "~0.6.5",
+    "grunt-contrib-less": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.2.2",
+    "grunt-contrib-requirejs": "~0.4.3",
+    "grunt-contrib-uglify": "~0.2.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@kamphausen.dyndns.org:learn"
+  },
+  "author": "David Kamphausen",
+  "license": "none",
+  "readmeFilename": "README.md",
+  "gitHead": "089518df038ee7e501580b80abb1c10cb43d1952"
+}
