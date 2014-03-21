@@ -35,7 +35,7 @@ define(["backbone", "mustache","start","plus","progress","state"],
     var Router=Backbone.Router.extend({
       routes:{
         "":"index",
-        "plus/:max":"plus",
+        "plus/:min0..:max0+:min1..:max1":"plus",
         "progress/*url":"progress"
       },
       initialize:function() {
@@ -45,8 +45,8 @@ define(["backbone", "mustache","start","plus","progress","state"],
       index:function() {
         show(start);
       },
-      plus:function(max) {
-        show(plus,{attributes:{max:max}});
+      plus:function(min0,max0,min1,max1) {
+        show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1}});
       },
       progress:function(url) {
         show(progress,{attributes:{url:url}});

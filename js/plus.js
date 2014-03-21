@@ -11,16 +11,21 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
     initialize:function() {
       this.create();
     },
-    random:function() {
-      return _.random(this.get("min"),this.get("max"));
+    random:function(op) {
+      var min=parseInt(this.get("min"+op),10);
+      var max=parseInt(this.get("max"+op),10);
+      console.log("RND",min,max);
+      var r= _.random(min,max);
+      console.log("R;",r);
+      return r;
     },
     create:function() {
-      var a=this.random();
-      var b=this.random();
+      var a=this.random("0");
+      var b=this.random("1");
       var result=a+b;
       var options=[result];
       while(options.length<this.get("optionCount")) {
-        var p=this.random()+this.random();
+        var p=this.random("0")+this.random("1");
         console.log(p,options,_.contains(options,p));
         if(!_.contains(options,p))
           options.push(p);
@@ -94,11 +99,22 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
   var App = Backbone.View.extend({
     WAIT_TIME_GOOD:500,
     WAIT_TIME_BAD:4000,
+    defaultOps:{
+      min0:1,
+      max0:3,
+      min1:1,
+      max1:3,
+      optionCount:4
+    },
     initialize: function(){
       console.log("PLUS APP",this);
       this.sequenceModel=new SequenceModel({counter:0,count:4,good:0,bad:0});
 
-      this.model=new ExerciseModel({min:1,max:this.attributes.max||4,optionCount:4});
+      var ops=$.extend({},this.defaultOps);
+      $.extend(ops,this.attributes);
+
+
+      this.model=new ExerciseModel(ops);
       this.exerciseView=new ExerciseView({model:this.model});
       this.$el.append(this.exerciseView.el);
       //FIXME: add exerciseView.el to this.$el

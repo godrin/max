@@ -1,9 +1,13 @@
 [
   {
+    "name":"Plus bis 5",
+    "url":"#plus/1..5+1..5"
+  },
+  {
     "name":"Plus bis 10",
-    "url":"#plus/10"
+    "url":"#plus/10+10"
   },
   {
     "name":"Plus bis 20",
-    "url":"#plus/20"
+    "url":"#plus/20+20"
   }]
