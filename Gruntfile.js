@@ -19,12 +19,14 @@ module.exports = function(grunt) {
       }
     },
     requirejs: {
-      compile: {
+      production: {
         options: {
-          baseUrl: "learn",
+          baseUrl: "js",
           mainConfigFile: "js/main.js",
-          name: "path/to/almond", // assumes a production build using almond
-          out: "build/optimized.js"
+          name:"main",
+//          name: "path/to/almond", // assumes a production build using almond
+          out: "build/optimized.js",
+          optimize:"none"
         }
       }
     },
@@ -35,6 +37,16 @@ module.exports = function(grunt) {
         },
         files:{
           "dist/progress.css":"js/css/progress.less"
+        }
+      },
+      production:{
+        files: {
+          "dist/production.css":[
+            "js/libs/bootstrap/dist/css/bootstrap.min.css",
+            "js/libs/bootstrap/dist/css/bootstrap-theme.min.css",
+            "index.css",
+            "js/css/progress.less"
+          ]
         }
       }
     }
@@ -48,6 +60,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify','less']);
+  grunt.registerTask('default', ['uglify','less','requirejs']);
 
 };
