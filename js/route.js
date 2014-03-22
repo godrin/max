@@ -1,9 +1,9 @@
-define(["backbone", "mustache","start","plus","progress","state"], 
+define(["backbone", "mustache","start","plus","progress","state","fastclick"], 
   function(Backbone,
     Mustache,
     start,
     plus,
-  progress,State){
+  progress,State,FastClick){
     var appOptions={tagName:"div",className:"page"};
     var container="#pageContainer";
 
@@ -53,7 +53,7 @@ define(["backbone", "mustache","start","plus","progress","state"],
       }
 
     });
-
+ FastClick.attach(document.body);
 
 
     return Router;
