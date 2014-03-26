@@ -8,7 +8,7 @@ define(["backbone", "mustache","start","plus","progress","state","fastclick"],
     var container="#pageContainer";
 
     var levels=State.Levels;
-    levels.fetch();
+    //levels.fetch();
     State.State.fetch();
 
     function show(type,options) {

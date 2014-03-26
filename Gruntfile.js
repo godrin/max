@@ -5,11 +5,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+        compress:false
       },
       build: {
         //src: 'src/<%= pkg.name %>.js',
-        src: 'js/main.js',
+        src: 'build/optimized.js',
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
@@ -26,7 +27,8 @@ module.exports = function(grunt) {
           name:"main",
 //          name: "path/to/almond", // assumes a production build using almond
           out: "build/optimized.js",
-          optimize:"none"
+          optimize:"none",
+          include: ['libs/requirejs/require.js']
         }
       }
     },
@@ -60,6 +62,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify','less','requirejs']);
+  grunt.registerTask('default', ['less','requirejs','uglify']);
 
 };
