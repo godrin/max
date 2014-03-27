@@ -25,6 +25,7 @@ module.exports = function(grunt) {
           baseUrl: "js",
           mainConfigFile: "js/main.js",
           name:"main",
+          logLevel:3,
 //          name: "path/to/almond", // assumes a production build using almond
           out: "build/optimized.js",
           optimize:"none",
