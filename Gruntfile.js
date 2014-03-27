@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 //          name: "path/to/almond", // assumes a production build using almond
           out: "build/optimized.js",
           optimize:"none",
-          include: ['libs/requirejs/require.js']
+//          include: ['libs/requirejs/require.js']
         }
       }
     },
