@@ -1,5 +1,12 @@
 module.exports = function(grunt) {
 
+  var cssFiles= [
+    "js/libs/bootstrap/dist/css/bootstrap.min.css",
+    "js/libs/bootstrap/dist/css/bootstrap-theme.min.css",
+    "index.css",
+    "js/css/progress.less"
+  ];
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -14,53 +21,62 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-//    bower: {
-//      install: {
-//        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
-//      }
-//    },
-    requirejs: {
-      production: {
-        options: {
-          baseUrl: "js",
-          mainConfigFile: "js/main.js",
-          name:"main",
-          logLevel:3,
-//          name: "path/to/almond", // assumes a production build using almond
-          out: "build/optimized.js",
-          optimize:"none",
-//          include: ['libs/requirejs/require.js']
-        }
-      }
-    },
-    less: {
-      development:{
-        options:{
-          //paths:["assets/css"]
+    //    bower: {
+      //      install: {
+        //        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+        //      }
+        //    },
+        requirejs: {
+          production: {
+            options: {
+              baseUrl: "js",
+              mainConfigFile: "js/main.js",
+              name:"main",
+              logLevel:3,
+              //          name: "path/to/almond", // assumes a production build using almond
+              out: "build/optimized.js",
+              optimize:"none",
+              //          include: ['libs/requirejs/require.js']
+            }
+          }
         },
-        files:{
-          "dist/progress.css":"js/css/progress.less"
+        less: {
+          development:{
+            options:{
+              //paths:["assets/css"]
+            },
+            files:{
+              "dist/progress.css":"js/css/progress.less"
+            }
+          },
+          production:{
+            files: {
+              "dist/production.css":cssFiles
+            }
+          }
+        },
+        watch: {
+          less:{
+            files:cssFiles,
+            tasks:["less"],
+            options: {
+              // Start a live reload server on the default port 35729
+              livereload: true,
+              //               },
+              //               
+            }
+          }
         }
-      },
-      production:{
-        files: {
-          "dist/production.css":[
-            "js/libs/bootstrap/dist/css/bootstrap.min.css",
-            "js/libs/bootstrap/dist/css/bootstrap-theme.min.css",
-            "index.css",
-            "js/css/progress.less"
-          ]
-        }
-      }
-    }
+
 
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-//  grunt.loadNpmTasks('grunt-bower-task');
+  //  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['less','requirejs','uglify']);
