@@ -7,7 +7,7 @@ require.config({
     "backbone": "libs/backbone/backbone",
     "localstorage": "libs/backbone.localstorage/backbone.localStorage",
     "mustache": "libs/mustache/mustache",
-    "bootstrap": "libs/bootstrap/dist/js/bootstrap",
+//    "bootstrap": "libs/bootstrap/dist/js/bootstrap",
     "hide-address-bar": "libs/hide-address-bar/hide-address-bar",
     "fastclick": "libs/fastclick-amd/fastclick"
   },
