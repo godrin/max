@@ -14,13 +14,13 @@ require.config({
   shim: {
     "backbone": {
       //   loads dependencies first
-      deps: ["jquery", "underscore"],
+      deps: ["jquery", "underscore"]
       // custom export name, this would be lowercase otherwise
-      exports: "Backbone"
+//      exports: "Backbone"
     },
     "bootstrap": {
-      deps:["jquery"],
-      exports:"Bootstrap"
+      deps:["jquery"]
+ //     exports:"Bootstrap"
     }
   },
   //  how long the it tries to load a script before giving up, the default is 7
@@ -31,8 +31,7 @@ require.config({
 //require(['bootstrap,jquery', 'underscore', 'backbone', 'hide-address-bar'], function(jquery, _, Backbone,hideAddressBar){
 //require(['bootstrap', 'app'], function(Bootstrap, App){
 
-require(['backbone','route'], function( Backbone,App){
-  require('bootstrap');
+require(['bootstrap','backbone','route'], function( Bootstrap,Backbone,App){
   new App;
   Backbone.history.start();
 });
