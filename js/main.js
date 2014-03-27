@@ -31,7 +31,7 @@ require.config({
 //require(['bootstrap,jquery', 'underscore', 'backbone', 'hide-address-bar'], function(jquery, _, Backbone,hideAddressBar){
 //require(['bootstrap', 'app'], function(Bootstrap, App){
 
-require(['bootstrap','backbone','route'], function( Bootstrap,Backbone,App){
+require(['backbone','route'], function( Backbone,App){
   new App;
   Backbone.history.start();
 });
