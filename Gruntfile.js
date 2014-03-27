@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       },
       build: {
         //src: 'src/<%= pkg.name %>.js',
-        src: 'build/optimized.js',
+        src: ['js/libs/requirejs/require.js','build/optimized.js'],
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
