@@ -14,11 +14,11 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
-    bower: {
-      install: {
-        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
-      }
-    },
+//    bower: {
+//      install: {
+//        //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+//      }
+//    },
     requirejs: {
       production: {
         options: {
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-bower-task');
+//  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-less');
 
   // Default task(s).
