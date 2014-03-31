@@ -1,14 +1,14 @@
-define(["backbone","mustache","state","text!templates/progress.html"],function(Backbone,Mustache,State,progressTemplate) {
+define(["backbone","mustache","state","text!templates/progress.html",
+  "text!../img/sun.svg"],function(Backbone,Mustache,State,progressTemplate,sunSvg) {
   var ProgressView=Backbone.View.extend({
     className:"progress",
     tagName:"div",
     render:function() {
       var url=this.attributes.url;
       var state=State.State.get(url);
-      console.log("STATE",state,url);
 
       var stars=[];
-      _.times(state.get("rating"),function() {stars.push(1);});
+      _.times(state.get("rating"),function() {stars.push({sunSvg:sunSvg});});
 
 
       var viewModel={grey:[1,1,1],colored:stars};

@@ -12,9 +12,21 @@
   margin: 0 auto;
   .stars {
     position:absolute;
-    img {
+    img,.starContainer {
       width:@starSize;
       max-width:30%;
+    }
+    .starContainer {
+      position:relative;
+      float:left;
+      //display:inline-block;
+    }
+    svg {
+    /*  display:block;
+      position: absolute;
+      top: 0;
+      left: 0;*/
+      width: 100%; /* only required for <img /> */
     }
   }
 } 
@@ -25,3 +37,37 @@
   position:absolute;
 }
 
+#orangeBeams {
+  animation-name: clockwise;
+  animation-timing-function:linear;
+  animation-duration: 15s;
+  /* Things added */
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes clockwise {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+#yellowBeams {
+  animation-name: counterclockwise;
+  animation-timing-function:linear;
+  animation-duration: 30s;
+  /* Things added */
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes counterclockwise {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}

@@ -58,13 +58,19 @@ module.exports = function(grunt) {
         watch: {
           less:{
             files:cssFiles,
-            tasks:["less"],
+            tasks:["less","autoprefixer"],
             options: {
               // Start a live reload server on the default port 35729
               livereload: true,
               //               },
               //               
             }
+          }
+        },
+        autoprefixer: {
+          single:{
+            src:"dist/production.css",
+            dest:"dist/production.prefixed.css"
           }
         }
 
@@ -77,8 +83,8 @@ module.exports = function(grunt) {
   //  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
-
+  grunt.loadNpmTasks('grunt-autoprefixer');
   // Default task(s).
-  grunt.registerTask('default', ['less','requirejs','uglify']);
+  grunt.registerTask('default', ['less','autoprefixer','requirejs','uglify']);
 
 };
