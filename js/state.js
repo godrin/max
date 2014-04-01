@@ -6,7 +6,7 @@ define(["backbone","text!levels.json","localstorage"],function(Backbone,levelsDa
   var StateCollection=Backbone.Collection.extend({
     localStorage: new Backbone.LocalStorage("state"), // Unique name within your app.
     upsert:function(data) {
-      data.id=data.url;
+//      data.id=data.url;
       console.log("UPSERT",data);
       var s=this.findWhere({url:data.url});
       if(s) {

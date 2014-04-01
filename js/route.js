@@ -1,14 +1,9 @@
-define(["backbone", "mustache","start","plus","progress","state","fastclick"], 
-  function(Backbone,
-    Mustache,
-    start,
-    plus,
-  progress,State,FastClick){
+define(["backbone", "mustache","start", "plus", "progress", "state", "fastclick","views/main"], 
+  function(Backbone, Mustache,start, plus, progress, State, FastClick, MainView){
     var appOptions={tagName:"div",className:"page"};
     var container="#pageContainer";
 
     var levels=State.Levels;
-    //levels.fetch();
     State.State.fetch();
 
     function show(type,options) {
@@ -21,21 +16,10 @@ define(["backbone", "mustache","start","plus","progress","state","fastclick"],
       app.render();
     }
 
-    var MainView=Backbone.View.extend({
-      initialize:function() {
-        this.listenTo(State.State,"all",this.stateChanged);
-      },
-      stateChanged:function(event,model,collection) {
-        var url=model.get("url");
-        console.log("ROUTER",this.attributes.router,model,url);
-        this.attributes.router.navigate("progress/"+url, {trigger: true});
-      }
-
-    });
     var Router=Backbone.Router.extend({
       routes:{
         "":"index",
-        "plus/:min0..:max0+:min1..:max1":"plus",
+        "basic/:op/:min0..:max0/:min1..:max1":"plus",
         "progress/*url":"progress"
       },
       initialize:function() {
@@ -45,15 +29,17 @@ define(["backbone", "mustache","start","plus","progress","state","fastclick"],
       index:function() {
         show(start);
       },
-      plus:function(min0,max0,min1,max1) {
-        show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1}});
+      plus:function(op,min0,max0,min1,max1) {
+        console.log("PLUS",op,min0,arguments);
+        show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1,op:op}});
       },
       progress:function(url) {
+      console.log("PROGRRESS",url);
         show(progress,{attributes:{url:url}});
       }
 
     });
- FastClick.attach(document.body);
+    FastClick.attach(document.body);
 
 
     return Router;

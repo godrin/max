@@ -1,4 +1,4 @@
-define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
+define(["backbone", "mustache", "state", "text!templates/plus.html"], function(Backbone, Mustache, State, template){
 
   function one() {
     return Math.round(Math.random()*10);
@@ -14,24 +14,31 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
     random:function(op) {
       var min=parseInt(this.get("min"+op),10);
       var max=parseInt(this.get("max"+op),10);
-      console.log("RND",min,max);
       var r= _.random(min,max);
-      console.log("R;",r);
       return r;
     },
-    create:function() {
+    createPossibility:function() {
       var a=this.random("0");
       var b=this.random("1");
-      var result=a+b;
-      var options=[result];
+      var result;
+      switch(this.get("op")) {
+        case '-':
+          return {a:a+b,b:a,result:b};
+        case '+':
+        default:
+          return {a:a,b:b,result:a+b};
+      }
+    },
+    create:function() {
+      var p=this.createPossibility();
+      var options=[p.result];
       while(options.length<this.get("optionCount")) {
-        var p=this.random("0")+this.random("1");
-        console.log(p,options,_.contains(options,p));
-        if(!_.contains(options,p))
-          options.push(p);
+        p=this.createPossibility();
+        if(!_.contains(options,p.result))
+          options.push(p.result);
       }
       options.sort();
-      this.set({a:a,b:b,answer:result,options:options,result:null,clicked:null});
+      this.set({a:p.a,b:p.b,answer:p.result,options:options,result:null,clicked:null});
     }
   });
 
@@ -39,14 +46,11 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
     events:{
       "click .btn":"buttonClicked"
     },
-    templateEl:"#plusExerciseTemplate",
     initialize:function() {
       this.render();
       this.listenTo(this.model,"change",this.render);
     },
     render:function() {
-      if(!this.template)
-        this.template=$(this.templateEl).html();
       var viewModel=this.model.toJSON();
       viewModel.options=_.map(viewModel.options,function(val) {
         return { value: val,
@@ -57,8 +61,8 @@ define(["backbone", "mustache", "state"], function(Backbone,Mustache, State){
       });
       viewModel.correctResult=viewModel.result=="success";
       viewModel.failResult=viewModel.result=="fail";
-      viewModel.op="+";
-      this.$el.html(Mustache.render(this.template,viewModel));
+      viewModel.op=this.model.get("op");
+      this.$el.html(Mustache.render(template,viewModel));
     },
     buttonClicked:function(event) {
       var targetText=$(event.currentTarget).text();

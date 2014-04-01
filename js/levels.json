@@ -1,13 +1,23 @@
 [
   {
-    "name":"Plus bis 5",
-    "url":"#plus/1..5+1..5"
-  },
-  {
     "name":"Plus bis 10",
-    "url":"#plus/10+10"
+    "url":"#basic/+/1..5/1..5"
   },
   {
     "name":"Plus bis 20",
-    "url":"#plus/20+20"
-  }]
+    "url":"#basic/+/1..10/1..10"
+  },
+  {
+    "name":"Plus bis 40",
+    "url":"#basic/+/1..20/1..20"
+  },
+  {
+    "name":"Plus bis 80",
+    "url":"#basic/+/1..40/1..40"
+  },
+  {
+    "name":"Plus bis 100",
+    "url":"#basic/+/1..50/1..50"
+  }
+
+]

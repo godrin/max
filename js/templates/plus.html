@@ -1,0 +1,26 @@
+<div class='{{#correctResult}}green-border{{/correctResult}}'>
+  <div class='exercise-header'>
+    <div class='container'>
+      <h1 class='math text-xl xquestion first text-center'>
+        {{a}}{{op}}{{b}}
+      </h1>
+      <h1 class='math text-xl xquestion equals text-center'>=</h1>
+    </div>
+  </div>
+  <div class='exercise-answer'>
+    <div class='container'>
+      <div class='colored-border'></div>
+
+      <div class='bn-group text-center result'>
+        {{#options}}
+        <button class='btn btn-xl {{#disabled}}disabled{{/disabled}} 
+          {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} 
+          {{#clicked}}clicked{{/clicked}}'>
+          {{value}}
+        </button> 
+        {{/options}}
+      </div>
+    </div>
+  </div>
+</div>
+

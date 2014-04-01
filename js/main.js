@@ -1,4 +1,3 @@
-//the require library is configuring paths
 require.config({
   paths: {
     "jquery": "libs/jquery/dist/jquery",
@@ -26,13 +25,8 @@ require.config({
   //  how long the it tries to load a script before giving up, the default is 7
   waitSeconds: 30
 });
-//requiring the scripts in the first argument and then passing the library namespaces into a callback
-//you should be able to console log all of the callback arguments
-//require(['bootstrap,jquery', 'underscore', 'backbone', 'hide-address-bar'], function(jquery, _, Backbone,hideAddressBar){
-//require(['bootstrap', 'app'], function(Bootstrap, App){
 
 require(['bootstrap','backbone','route','fastclick'], function(Bootstrap, Backbone, App){
   new App;
   Backbone.history.start();
 });
-//});

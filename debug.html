@@ -22,48 +22,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- link rel="stylesheet" href="css/main.css" -->
     <script data-main="js/main" src="js/libs/requirejs/require.js"></script>
-
-    <script type='text/html' id='plusExerciseTemplate'>
-      <div class='{{#correctResult}}green-border{{/correctResult}}'>
-        <div class='exercise-header'>
-          <div class='container'>
-            <h1 class='math text-xl xquestion first text-center'>
-              {{a}}{{op}}{{b}}
-            </h1>
-            <h1 class='math text-xl xquestion equals text-center'>=</h1>
-          </div>
-        </div>
-        <div class='exercise-answer'>
-          <div class='container'>
-            <div class='colored-border'></div>
-
-            <div class='bn-group text-center result'>
-              {{#options}}
-              <button class='btn btn-xl {{#disabled}}disabled{{/disabled}} 
-                {{^correct}}btn-default{{/correct}}{{#correct}}btn-primary{{/correct}} 
-                {{#clicked}}clicked{{/clicked}}'>
-                {{value}}
-              </button> 
-              {{/options}}
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </script>
-
-    <script type='text/html' id='startPageTemplate'>
-      <div class='container'>
-        <h1>Such Dir eine Aufgabe aus:</h1>
-        {{#exercise}}
-        <div class='col-md-4'>
-          <a class='btn btn-default btn-lg' href='{{url}}'>
-            {{name}}
-          </a>
-        </div>
-        {{/exercise}}
-      </div>
-    </script>
   </head>
   <body>
     <!--[if lt IE 7]>

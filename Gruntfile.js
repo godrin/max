@@ -72,6 +72,13 @@ module.exports = function(grunt) {
             src:"dist/production.css",
             dest:"dist/production.prefixed.css"
           }
+        },
+        cssmin: {
+          min:{
+            files:{
+              "dist/production.min.css":["dist/production.prefixed.css"]
+            }
+          }
         }
 
 
@@ -84,6 +91,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
+  //grunt.loadNpmTasks('grunt-contrib-cssmin');
   // Default task(s).
   grunt.registerTask('default', ['less','autoprefixer','requirejs','uglify']);
 

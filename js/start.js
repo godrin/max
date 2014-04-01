@@ -1,7 +1,6 @@
-define(["backbone","mustache","state"],function(Backbone,Mustache,State) {
+define(["backbone","mustache","state","text!templates/start.html"],function(Backbone,Mustache,State,template) {
   return Backbone.View.extend({
     levels:State.Levels,
-    templateEl:"#startPageTemplate",
     initialize:function() {
       this.listenTo(this.levels,"sync",this.render);
       this.render();
@@ -12,7 +11,7 @@ define(["backbone","mustache","state"],function(Backbone,Mustache,State) {
         ]
         };
         viewModel.exercise=this.levels.toJSON();
-        this.$el.html(Mustache.render($(this.templateEl).html(),viewModel));
+        this.$el.html(Mustache.render(template,viewModel));
     }
   });
 });
