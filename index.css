@@ -46,21 +46,12 @@
   margin-bottom:10px;
   overflow:hidden;
 }
-.green-border .exercise-header {
-  margin-bottom:0px;
-  border-color:green;
-  border-style:solid;
-}
-
 .exercise-header h1 {
   color:white;
 }
 
 .exercise-answer {
   margin-top:20px;
-}
-.green-border t.exercise-answer {
-  margin-top:10px;
 }
 .exercise-answer .container {
   position:relative;
