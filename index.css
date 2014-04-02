@@ -44,6 +44,7 @@
   border-width:0px;
   border-bottom-width:10px;
   margin-bottom:10px;
+  overflow:hidden;
 }
 .green-border .exercise-header {
   margin-bottom:0px;
