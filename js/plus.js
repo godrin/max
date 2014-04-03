@@ -83,8 +83,10 @@ function(Backbone, Mustache, State, template, templateQuestion,
       this.listenTo(this.model,"change",this.checkSun);
     },
     checkSun:function() {
+    this.$el.height(this.$el.width());
       if(this.model.get("result")=="success") {
-        this.$el.animate({bottom:-50,opacity:1},
+      var y=-this.$el.width()/4;
+        this.$el.animate({bottom:y,opacity:1},
         {duration:this.HIDE_TIME*3/2, easing:"easeOutStrong"});
         if(this.interval)
           clearTimeout(this.interval);
@@ -92,7 +94,8 @@ function(Backbone, Mustache, State, template, templateQuestion,
       }
     },
     hide:function() {
-      this.$el.animate({bottom:-300,opacity:0.2},this.HIDE_TIME/2);
+      var y=-this.$el.width();
+      this.$el.animate({bottom:y,opacity:0.2},this.HIDE_TIME/2);
     }
   });
 
