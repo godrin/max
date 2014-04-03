@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "backbone.localstorage": "~1.1.7",
-    "fastclick-amd": "*"
+    "fastclick-amd": "*",
+    "gsap": "~1.11.6"
   }
 }

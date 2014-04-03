@@ -8,7 +8,9 @@ require.config({
     "mustache": "libs/mustache/mustache",
     "bootstrap": "libs/bootstrap/dist/js/bootstrap",
     "hide-address-bar": "libs/hide-address-bar/hide-address-bar",
-    "fastclick": "libs/fastclick-amd/fastclick"
+    "fastclick": "libs/fastclick-amd/fastclick",
+    "gsap-jquery-plugin": "libs/gsap/src/uncompressed/jquery.gsap",
+    "gsap": "libs/gsap/src/uncompressed/TweenMax"
   },
   shim: {
     "backbone": {
@@ -20,13 +22,16 @@ require.config({
     "bootstrap": {
       deps:["jquery"],
       exports:"Bootstrap"
+    },
+    "gsap-jquery-plugin": {
+      deps:["gsap","jquery"]
     }
   },
   //  how long the it tries to load a script before giving up, the default is 7
   waitSeconds: 30
 });
 
-require(['bootstrap','backbone','route','fastclick'], function(Bootstrap, Backbone, App){
+require(['bootstrap','backbone','route','fastclick','gsap-jquery-plugin'], function(Bootstrap, Backbone, App){
   new App;
   Backbone.history.start();
 });
