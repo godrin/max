@@ -19,14 +19,6 @@
     .starContainer {
       position:relative;
       float:left;
-      //display:inline-block;
-    }
-    svg {
-    /*  display:block;
-      position: absolute;
-      top: 0;
-      left: 0;*/
-      width: 100%; /* only required for <img /> */
     }
   }
 } 
@@ -36,6 +28,9 @@
   bottom:10%;
   position:absolute;
 }
+
+// possible fix for firefox with http://jsfiddle.net/4h3xL/1/
+// from https://stackoverflow.com/questions/18938331/transform-origin-for-css-animation-on-svg-working-in-chrome-not-ff
 
 #orangeBeams {
   animation-name: clockwise;
@@ -81,3 +76,19 @@
   opacity:0.2;
 }
 
+
+.start-page img {
+  width:20px;
+  margin-left:10px;
+}
+.start-page svg {
+width:32px;
+height:32px;
+margin-bottom:-10px;
+margin-top:-5px;
+margin-left:5px;
+}
+.start-page .btn {
+  width:250px;
+  margin-bottom:20px;
+}

@@ -1,11 +1,17 @@
-<div class='container'>
+<div class='container start-page'>
   <h1>Such Dir eine Aufgabe aus:</h1>
   {{#exercise}}
-  <div class='col-md-4'>
-    <a class='btn btn-default btn-lg' href='{{url}}'>
-      {{name}}
-    </a>
-  </div>
+    <div class='col-md-4'>
+      <a class='btn btn-default btn-lg {{#blocked}}disabled{{/blocked}}' href='{{url}}'>
+        {{name}}{{#blocked}}<img src='img/lock.svg'>{{/blocked}}
+      {{#rating.colored}}
+      <!--div class='stars' -->
+      {{{sunSvg}}}
+      <!--/div-->
+      {{/rating.colored}}
+      </a>
+      
+    </div>
   {{/exercise}}
 </div>
 

@@ -34,13 +34,12 @@ define(["backbone", "mustache","start", "plus", "progress", "state", "fastclick"
         show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1,op:op}});
       },
       progress:function(url) {
-      console.log("PROGRRESS",url);
+        console.log("PROGRRESS",url);
         show(progress,{attributes:{url:url}});
       }
 
     });
     FastClick.attach(document.body);
-
 
     return Router;
   });

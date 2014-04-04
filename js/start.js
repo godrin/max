@@ -1,4 +1,6 @@
-define(["backbone","mustache","state","text!templates/start.html"],function(Backbone,Mustache,State,template) {
+define(["backbone", "mustache", "state", "presenter/progress",
+"text!templates/start.html"], 
+function(Backbone, Mustache, State, ProgressPresenter, template) {
   return Backbone.View.extend({
     levels:State.Levels,
     initialize:function() {
@@ -6,12 +8,21 @@ define(["backbone","mustache","state","text!templates/start.html"],function(Back
       this.render();
     },
     render:function() {
-      var viewModel={exercise:[
-        {name:"Plus bis 10",url:"#plus"}
-        ]
-        };
-        viewModel.exercise=this.levels.toJSON();
-        this.$el.html(Mustache.render(template,viewModel));
+      var viewModel={};
+      var self=this;
+      viewModel.exercise=this.levels.map(function(level) {
+        console.log("L",self.levels,level);
+        var o=level.toJSON();
+        o.blocked=level.isBlocked();
+        var s=level.state();
+        if(s) {
+          o.rating=ProgressPresenter.present(s);
+          // o.rating=s.toJSON();
+        }
+        return o;
+      });
+      console.log("VM",viewModel);
+      this.$el.html(Mustache.render(template,viewModel));
     }
   });
 });
