@@ -8,6 +8,14 @@
     "url":"#basic/+/1..10/1..10"
   },
   {
+    "name":"Plus bis 25",
+    "url":"#basic/+/1..15/1..10"
+  },
+  {
+    "name":"Plus bis 30",
+    "url":"#basic/+/1..15/1..15"
+  },
+  {
     "name":"Plus bis 40",
     "url":"#basic/+/1..20/1..20"
   },
