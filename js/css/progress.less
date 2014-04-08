@@ -31,14 +31,24 @@
 
 // possible fix for firefox with http://jsfiddle.net/4h3xL/1/
 // from https://stackoverflow.com/questions/18938331/transform-origin-for-css-animation-on-svg-working-in-chrome-not-ff
+.animated {
+  #orangeBeams {
+    animation-name: clockwise;
+    animation-timing-function:linear;
+    animation-duration: 15s;
+    /* Things added */
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+  }
 
-#orangeBeams {
-  animation-name: clockwise;
-  animation-timing-function:linear;
-  animation-duration: 15s;
-  /* Things added */
-  animation-iteration-count: infinite;
-  transform-origin: 50% 50%;
+  #yellowBeams {
+    animation-name: counterclockwise;
+    animation-timing-function:linear;
+    animation-duration: 30s;
+    /* Things added */
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+  }
 }
 @keyframes clockwise {
     0% {
@@ -49,15 +59,6 @@
     }
 }
 
-
-#yellowBeams {
-  animation-name: counterclockwise;
-  animation-timing-function:linear;
-  animation-duration: 30s;
-  /* Things added */
-  animation-iteration-count: infinite;
-  transform-origin: 50% 50%;
-}
 @keyframes counterclockwise {
     0% {
         transform: rotate(0deg);

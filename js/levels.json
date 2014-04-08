@@ -1,31 +1,31 @@
 [
   {
-    "name":"Plus bis 10",
+    "name":"3 + 4",
     "url":"#basic/+/1..5/1..5"
   },
   {
-    "name":"Plus bis 20",
+    "name":"9 + 7",
     "url":"#basic/+/1..10/1..10"
   },
   {
-    "name":"Plus bis 25",
+    "name":"14 + 8",
     "url":"#basic/+/1..15/1..10"
   },
   {
-    "name":"Plus bis 30",
-    "url":"#basic/+/1..15/1..15"
+    "name":"12 + 14",
+    "url":"#basic/+/5..15/5..15"
   },
   {
-    "name":"Plus bis 40",
-    "url":"#basic/+/1..20/1..20"
+    "name":"16 + 13",
+    "url":"#basic/+/10..20/10..20"
   },
   {
-    "name":"Plus bis 80",
-    "url":"#basic/+/1..40/1..40"
+    "name":"26 + 19",
+    "url":"#basic/+/15..40/15..40"
   },
   {
-    "name":"Plus bis 100",
-    "url":"#basic/+/1..50/1..50"
+    "name":"39 + 24",
+    "url":"#basic/+/20..50/20..50"
   }
 
 ]

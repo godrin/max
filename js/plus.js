@@ -1,9 +1,9 @@
 define(["backbone", "mustache", "state", "text!templates/plus.html",
   "text!templates/plus_question.html",
   "text!templates/plus_options.html",
-  "text!../img/sun.svg"], 
+"text!../img/sun.svg"], 
 function(Backbone, Mustache, State, template, templateQuestion,
-  templateOptions, sunSvg){
+templateOptions, sunSvg){
 
   function one() {
     return Math.round(Math.random()*10);
@@ -23,25 +23,38 @@ function(Backbone, Mustache, State, template, templateQuestion,
       return r;
     },
     createPossibility:function() {
-      var a=this.random("0");
-      var b=this.random("1");
+      var a = this.random("0");
+      var b = this.random("1");
       var result;
       switch(this.get("op")) {
         case '-':
-          return {a:a+b,b:a,result:b};
+          return {a:a+b, b:a, result:b};
         case '+':
         default:
-          return {a:a,b:b,result:a+b};
+          return {a:a, b:b, result:a+b};
       }
     },
     create:function() {
       var p=this.createPossibility();
+      var orig=p;
       var options=[p.result];
-      while(options.length<this.get("optionCount")) {
-        p=this.createPossibility();
-        if(!_.contains(options,p.result))
-          options.push(p.result);
+      var others=[];
+      while(others.length<this.get("optionCount")*3) {
+        console.log("X");
+        np=this.createPossibility();
+        var r=np.result;
+        _.each([r,r-1,r+1,r-10,r+10],function(a) {
+          if(orig.result!=a && !_.contains(others,p.result) && a>1)
+            others.push(a);
+        });
       }
+      others=_.shuffle(others);
+      others=others.slice(0,this.get("optionCount")-1);
+
+      console.log("OTHERS",others,this.get("optionCount"));
+
+      options=options.concat(others);
+      console.log("OPTIONS",options,others);
       options.sort();
       this.set({a:p.a,b:p.b,answer:p.result,options:options,result:null,clicked:null});
     }
@@ -83,9 +96,9 @@ function(Backbone, Mustache, State, template, templateQuestion,
       this.listenTo(this.model,"change",this.checkSun);
     },
     checkSun:function() {
-    this.$el.height(this.$el.width());
+      this.$el.height(this.$el.width());
       if(this.model.get("result")=="success") {
-      var y=-this.$el.width()/4;
+        var y=-this.$el.width()/4;
         this.$el.animate({bottom:y,opacity:1},
         {duration:this.HIDE_TIME*3/2, easing:"easeOutStrong"});
         if(this.interval)
@@ -105,7 +118,6 @@ function(Backbone, Mustache, State, template, templateQuestion,
     },
     initialize:function() {
       this.render();
-      //    this.listenTo(this.model,"change",this.render);
     },
     render:function() {
       var viewModel=this.model.toJSON();
@@ -132,20 +144,6 @@ function(Backbone, Mustache, State, template, templateQuestion,
       this.model.set({result:result,clicked:targetText});
     }
   });
-  /*
-  var BorderView = Backbone.View.extend({
-  initialize:function() {
-  this.listenTo(this.model,"change",this.render);
-  },
-  render:function() {
-  this.$el.removeClass("red-border").removeClass("green-border");
-  if(this.model.get("result")=="success")
-  this.$el.addClass("green-border");
-else if(this.model.get("result")=="fail")
-  this.$el.addClass("red-border");
-  }
-  });
-  */
   var SequenceModel=Backbone.Model.extend({
     initialize:function() {
       this.listenTo(this,"change",this.checkReady);
@@ -226,14 +224,7 @@ else if(this.model.get("result")=="fail")
         rating=0;
       State.State.upsert({url:location.hash.substr(1),rating:rating});
 
-      /*
-      this.resultView=new RatingView();
-      this.resultView.render();
-      console.log("RV",this.resultView,this.$el);
-
-      this.$el.append(this.resultView.el);
-      */
     }
   });
   return App;
-  });
+});
