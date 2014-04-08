@@ -22,6 +22,15 @@ templateOptions, sunSvg){
       var r= _.random(min,max);
       return r;
     },
+    maxTotal:function() {
+      switch(this.get("op")) {
+        case "-":
+          return this.get("max0");
+        case "+":
+        default:
+          return this.get("max0")+this.get("max1");
+      }
+    },
     createPossibility:function() {
       var a = this.random("0");
       var b = this.random("1");
@@ -39,14 +48,17 @@ templateOptions, sunSvg){
       var orig=p;
       var options=[p.result];
       var others=[];
-      while(others.length<this.get("optionCount")*3) {
+      var trials=1;
+      var max=this.maxTotal();
+      while(others.length<this.get("optionCount")*3 && trials<50) {
         console.log("X");
         np=this.createPossibility();
         var r=np.result;
         _.each([r,r-1,r+1,r-10,r+10],function(a) {
-          if(orig.result!=a && !_.contains(others,a) && a>1)
+          if(orig.result!=a && !_.contains(others,a) && a>1 && a<=max)
             others.push(a);
         });
+        trials+=1;
       }
       others=_.shuffle(others);
       others=others.slice(0,this.get("optionCount")-1);
