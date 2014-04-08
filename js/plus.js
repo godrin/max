@@ -44,7 +44,7 @@ templateOptions, sunSvg){
         np=this.createPossibility();
         var r=np.result;
         _.each([r,r-1,r+1,r-10,r+10],function(a) {
-          if(orig.result!=a && !_.contains(others,p.result) && a>1)
+          if(orig.result!=a && !_.contains(others,a) && a>1)
             others.push(a);
         });
       }
