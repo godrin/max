@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     "js/libs/bootstrap/dist/css/bootstrap.min.css",
     "js/libs/bootstrap/dist/css/bootstrap-theme.min.css",
     "index.css",
-    "js/css/progress.less"
+    "js/css/*.less"
   ];
 
   // Project configuration.
@@ -46,10 +46,14 @@ module.exports = function(grunt) {
               //paths:["assets/css"]
             },
             files:{
-              "dist/progress.css":"js/css/progress.less"
+              "dist/progress.css":["js/css/*.less"]
             }
           },
           production:{
+            options: {
+              optimization:true,
+              cleancss:true
+            },
             files: {
               "dist/production.css":cssFiles
             }

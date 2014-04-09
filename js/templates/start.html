@@ -1,17 +1,22 @@
 <div class='container start-page'>
   <h1>Such Dir eine Aufgabe aus:</h1>
   {{#exercise}}
-    <div class='col-sm-6'>
-      <a class='btn btn-default btn-lg {{#blocked}}disabled{{/blocked}}' href='{{url}}'>
-        {{name}}{{#blocked}}<img src='img/lock.svg'>{{/blocked}}
-      {{#rating.colored}}
-      <!--div class='stars' -->
-      {{{sunSvg}}}
-      <!--/div-->
-      {{/rating.colored}}
-      </a>
-      
-    </div>
+  <div class='col-sm-6'>
+    <a class='btn btn-default btn-lg {{#blocked}}disabled{{/blocked}} text-left' href='{{url}}'>
+      <div class='name text-left'><div class='circle'>{{i}}</div>   <span class='grey'>{{name}}</span></div>
+      {{#blocked}}
+      <div class='lock'>
+        <img src='img/lock.svg'>
+      </div>
+      {{/blocked}}
+      <div class='stars'>
+        {{#rating.colored}}
+        {{{sunSvg}}}
+        {{/rating.colored}}
+      </div>
+    </a>
+
+  </div>
   {{/exercise}}
 </div>
 

@@ -10,10 +10,11 @@ function(Backbone, Mustache, State, ProgressPresenter, template) {
     render:function() {
       var viewModel={};
       var self=this;
-      viewModel.exercise=this.levels.map(function(level) {
+      viewModel.exercise=this.levels.map(function(level,i) {
         console.log("L",self.levels,level);
         var o=level.toJSON();
         o.blocked=level.isBlocked();
+        o.i=i+1;
         var s=level.state();
         if(s) {
           o.rating=ProgressPresenter.present(s);
