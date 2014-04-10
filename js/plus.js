@@ -1,8 +1,10 @@
-define(["backbone", "mustache", "state", "text!templates/plus.html",
+define(["backbone", "mustache", "state", 
+  "plus_ex",
+  "text!templates/plus.html",
   "text!templates/plus_question.html",
   "text!templates/plus_options.html",
 "text!../img/sun.svg"], 
-function(Backbone, Mustache, State, template, templateQuestion,
+function(Backbone, Mustache, State, PlusExercise, template, templateQuestion,
 templateOptions, sunSvg){
 
   function one() {
@@ -43,7 +45,19 @@ templateOptions, sunSvg){
           return {a:a, b:b, result:a+b};
       }
     },
+    makeOp:function() {
+      switch(this.get("op")) {
+        case "+-":
+        case "-+":
+          return _.random(1,20)<10?"-":"+";
+        case "-":
+        case "+":
+        default:
+          return this.get("op");
+      }
+    },
     create:function() {
+      var op=this.makeOp();
       var p=this.createPossibility();
       var orig=p;
       var options=[p.result];
@@ -183,6 +197,8 @@ templateOptions, sunSvg){
     },
     initialize: function(){
       console.log("PLUS APP",this);
+      PlusExercise.create({formula:[{min:1,max:5},{op:"+.",min:10,max:15},{op:"+.",min:10,max:15}],options:5,result:{min:1,max:100}});
+
       this.sequenceModel=new SequenceModel({counter:0,count:4,good:0,bad:0});
 
       var ops=$.extend({},this.defaultOps);
