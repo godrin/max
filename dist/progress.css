@@ -1,0 +1,113 @@
+.progressView {
+  margin: 10%;
+}
+.starRating {
+  position: relative;
+  width: 480px;
+  max-width: 90%;
+  height: 160px;
+  margin: 0 auto;
+}
+.starRating .stars {
+  position: absolute;
+  width: 100%;
+}
+.starRating .stars img,
+.starRating .stars .starContainer {
+  width: 150px;
+  max-width: 30%;
+}
+.starRating .stars .starContainer {
+  position: relative;
+  float: left;
+}
+.page .progress {
+  top: 10%;
+  bottom: 10%;
+  position: absolute;
+}
+.animated #orangeBeams {
+  animation-name: clockwise;
+  animation-timing-function: linear;
+  animation-duration: 15s;
+  /* Things added */
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+.animated #yellowBeams {
+  animation-name: counterclockwise;
+  animation-timing-function: linear;
+  animation-duration: 30s;
+  /* Things added */
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes clockwise {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes counterclockwise {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.answer-sun {
+  position: absolute;
+  bottom: -300px;
+  height: 300px;
+  width: 300px;
+  max-width: 40%;
+  opacity: 0.2;
+}
+
+.start-page .btn {
+  position: relative;
+  width: 250px;
+  margin-bottom: 20px;
+}
+.start-page .btn .name {
+  text-align: left;
+  font-size: 100%;
+}
+.start-page .btn .name .circle {
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  background-color: #ffcc00;
+  margin-right: 10px;
+  line-height: 30px;
+}
+.start-page .btn .name .grey {
+  color: grey;
+}
+.start-page .btn .lock {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+.start-page .btn .lock img {
+  width: 50px;
+  opacity: 0.7;
+}
+.start-page .btn .stars {
+  position: absolute;
+  right: 5px;
+  top: -5px;
+}
+.start-page .btn .stars svg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: -10px;
+  margin-top: -5px;
+  margin-left: -5px;
+}

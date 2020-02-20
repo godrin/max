@@ -1,6 +1,5 @@
 node_modules
 build
-dist
 *.swp
 *.bak
 npm-debug.log
