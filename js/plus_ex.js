@@ -21,7 +21,7 @@ define([],function() {
 
   function makeOp(opString) {
     var op=opString;
-    if(opString=="+." || opString==".+") 
+    if(opString=="+-" || opString=="-+") 
       op=_.random(1,10)<5?"-":"+";
     var opMap={"+":plus,"-":minus,"*":mul,":":div};
     return {name:op,fct:opMap[op]};
@@ -58,7 +58,7 @@ define([],function() {
   // { 
     //   question: "3-2+4",
     //   options: [5,4,6,7],
-    //   correct:5
+    //   answer:5
     // }
     //
 
@@ -66,6 +66,8 @@ define([],function() {
       create:function (options) {
         var formula;
         var trials=0;
+
+        console.log("OPS",options);
         do {
           formula=createFormula(options.formula);
           if(options.result) {
@@ -78,7 +80,6 @@ define([],function() {
           if(trials>100)
             throw "Too many trials in creating execercise";
         }while(true);
-        console.log("FORM",formula);
 
         var r=formula.result;
 
@@ -92,7 +93,10 @@ define([],function() {
           return (a>=options.result.min && a<=options.result.max && a!=formula.result);
         }).shuffle().unique().value().slice(0,options.options-1);
 
-        console.log("OTHERS",others);
+        var ops=_.shuffle(others.concat(formula.result));
+        return {question:formula.text,
+          options:ops,
+          answer:formula.result};
       }
     };
 

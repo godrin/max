@@ -31,11 +31,20 @@ define(["backbone", "mustache","start", "plus", "progress", "state", "fastclick"
       },
       plus:function(op,min0,max0,min1,max1) {
         console.log("PLUS",op,min0,arguments);
-        show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1,op:op}});
+        //show(plus,{attributes:{min0:min0,max0:max0,min1:min1,max1:max1,op:op}});
+        show(plus,{attributes:{
+          settings:{options:4,
+            formula:[{min:parseInt(min0,10),max:parseInt(max0,10)},
+            {min:parseInt(min1,10),max:parseInt(max1,10),op:op}],
+            result:{min:1,max:1000}
+          }}});
       },
       progress:function(url) {
         console.log("PROGRRESS",url);
-        show(progress,{attributes:{url:url}});
+        var last=false;
+        if(url.match(/^last:.*/))
+          url=url.replace(/^last:/,'');
+        show(progress,{attributes:{url:url,last:last}});
       }
 
     });

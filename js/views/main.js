@@ -6,7 +6,7 @@ define(["backbone","state"],function(Backbone,State) {
     stateChanged:function(event,model,collection) {
       var url=model.get("url");
       console.log("ROUTER",this.attributes.router,model,url);
-      this.attributes.router.navigate("progress/"+url, {trigger: true});
+      this.attributes.router.navigate("progress/last:"+url, {trigger: true});
     }
 
   });

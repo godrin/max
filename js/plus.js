@@ -1,10 +1,9 @@
 define(["backbone", "mustache", "state", 
   "plus_ex",
   "text!templates/plus.html",
-  "text!templates/plus_question.html",
   "text!templates/plus_options.html",
 "text!../img/sun.svg"], 
-function(Backbone, Mustache, State, PlusExercise, template, templateQuestion,
+function(Backbone, Mustache, State, PlusExercise, template, 
 templateOptions, sunSvg){
 
   function one() {
@@ -18,71 +17,13 @@ templateOptions, sunSvg){
     initialize:function() {
       this.create();
     },
-    random:function(op) {
-      var min=parseInt(this.get("min"+op),10);
-      var max=parseInt(this.get("max"+op),10);
-      var r= _.random(min,max);
-      return r;
-    },
-    maxTotal:function() {
-      switch(this.get("op")) {
-        case "-":
-          return this.get("max0");
-        case "+":
-        default:
-          return this.get("max0")+this.get("max1");
-      }
-    },
-    createPossibility:function() {
-      var a = this.random("0");
-      var b = this.random("1");
-      var result;
-      switch(this.get("op")) {
-        case '-':
-          return {a:a+b, b:a, result:b};
-        case '+':
-        default:
-          return {a:a, b:b, result:a+b};
-      }
-    },
-    makeOp:function() {
-      switch(this.get("op")) {
-        case "+-":
-        case "-+":
-          return _.random(1,20)<10?"-":"+";
-        case "-":
-        case "+":
-        default:
-          return this.get("op");
-      }
-    },
     create:function() {
-      var op=this.makeOp();
-      var p=this.createPossibility();
-      var orig=p;
-      var options=[p.result];
-      var others=[];
-      var trials=1;
-      var max=this.maxTotal();
-      while(others.length<this.get("optionCount")*3 && trials<50) {
-        console.log("X");
-        np=this.createPossibility();
-        var r=np.result;
-        _.each([r,r-1,r+1,r-10,r+10],function(a) {
-          if(orig.result!=a && !_.contains(others,a) && a>1 && a<=max)
-            others.push(a);
-        });
-        trials+=1;
-      }
-      others=_.shuffle(others);
-      others=others.slice(0,this.get("optionCount")-1);
-
-      console.log("OTHERS",others,this.get("optionCount"));
-
-      options=options.concat(others);
-      console.log("OPTIONS",options,others);
-      options.sort();
-      this.set({a:p.a,b:p.b,answer:p.result,options:options,result:null,clicked:null});
+      console.log("EXMODEL.create");
+      var ops=PlusExercise.create(this.get("settings"));
+      ops.result=null;
+      ops.clicked=null;
+      this.set(ops);
+      console.log("MMM",this.toJSON());
     }
   });
 
@@ -93,7 +34,7 @@ templateOptions, sunSvg){
       this.listenTo(this.model,"change",this.render);
     },
     render:function() {
-      this.$el.html(Mustache.render(templateQuestion,this.model.toJSON()));
+      this.$el.html(this.model.get("question"));
     }
   });
 
@@ -104,13 +45,32 @@ templateOptions, sunSvg){
     },
     render:function() {
       var viewModel=this.model.toJSON();
-      viewModel.options=_.map(viewModel.options,function(val) {
+      var clickedId;
+
+
+      viewModel.options=_.map(viewModel.options,function(val,i) {
+        if(val==viewModel.clicked)
+          clickedId=i;
         return { value: val,
           correct: viewModel.clicked && val==viewModel.answer,
           clicked: val == viewModel.clicked,
           disabled: viewModel.clicked,
         };
       });
+      if(viewModel.result=="fail") {
+        var btn=this.$(".btn")[clickedId];
+        console.log("BTN",btn);
+        if($(btn).css("position")!="absolute") {
+          _.each(this.$(".btn"),function(b) {
+            var p=$(b).position();
+            console.log("PPP",p);
+            $(b).css({position:"absolute",top:p.top,left:p.left});
+          });
+        }
+        $(btn).animate({top:1000});
+        return;
+      }
+      console.log("VIEWMODEL",viewModel);
       viewModel.op=this.model.get("op");
       this.$el.html(Mustache.render(templateOptions,viewModel));
     },
@@ -164,8 +124,9 @@ templateOptions, sunSvg){
       new SunView({el:this.$(".answer-sun"),model:this.model});
     },
     buttonClicked:function(event) {
-      var targetText=$(event.currentTarget).text();
+      var targetText=parseInt($(event.currentTarget).text(),10);
       var result=(targetText==this.model.get("answer"))?"success":"fail";
+      console.log("BUTTON CLICKED result",result);
 
       this.model.set({result:result,clicked:targetText});
     }
@@ -197,7 +158,6 @@ templateOptions, sunSvg){
     },
     initialize: function(){
       console.log("PLUS APP",this);
-      PlusExercise.create({formula:[{min:1,max:5},{op:"+.",min:10,max:15},{op:"+.",min:10,max:15}],options:5,result:{min:1,max:100}});
 
       this.sequenceModel=new SequenceModel({counter:0,count:4,good:0,bad:0});
 

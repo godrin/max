@@ -11,9 +11,13 @@ define(["backbone","text!levels.json","localstorage"],function(Backbone,levelsDa
     upsert:function(data) {
       var s=this.findWhere({url:data.url});
       if(s) {
-        s.set(data);
+
+        if(data.rating>s.get("rating"))
+          s.set({rating:data.rating});
+        s.set({lastRating:data.rating});
         this.trigger("update",s,this);
       } else {
+        data.lastRating=data.rating;
         this.add(s=new StateModel(data));
       }
       s.save();
